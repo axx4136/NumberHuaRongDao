@@ -1,2 +1,2 @@
 # NumberHuaRongDao
-## getproblem——cutImage——find_image——prediction——qipan——post连接
+## getproblem.py——cutImage.py——find_image.py——prediction.py——qipan.py——post.py连接
