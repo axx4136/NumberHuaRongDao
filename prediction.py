@@ -11,11 +11,6 @@ class Prediction:
         self.q_tab = dict(zip(k,v))  # 构建Q表
         self.X = [-1, 0, 1, 0]
         self.Y = [0, -1, 0, 1]
-    # def load_tab(self,path):
-    #     q_tab = np.load(path)
-    #     k = q_tab['k']
-    #     v = q_tab['v']
-    #     q_tab = dict(zip(k,v))
     def pre_step(self, x):  # 预测状态 x 对应的步数
         x = x.reshape(1, -1)
         k = ""
