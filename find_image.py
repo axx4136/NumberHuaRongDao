@@ -46,35 +46,63 @@ def judgment(temp):
         for j in range(i+1,len(temp)):
             if temp[i]>temp[j]:
                 signal+=1
-            if signal==1:
-                position=i
+                if signal==1:
+                    position=i
     if signal%2!=0:
         print('no way')
-    return signal,position
-def swap(qipan,p):
-    print('swap[%d , %d]' % (p+1, p+2))
-    if p==0:  #交换的第一个数为第一格
+        return signal,position
+def swap(qipan,p,bkp):
+    if bkp<=p: #空格在第一个逆序数的左边
+        t = qipan[(p+1) // 3][(p+1) % 3]
+        qipan[(p+1) // 3][(p+1) % 3] = qipan[(p + 2) // 3][(p + 2) % 3]
+        qipan[(p + 2) // 3][(p + 2) % 3] = t
+        print('swap[%d , %d]' % (p+1, p + 2))
+        return p+1, p + 2
+    else:
+        if bkp==p+1:
+            t=qipan[p//3][p%3]
+            qipan[p//3][p%3]=qipan[(p+2)//3][(p+2)%3]
+            qipan[(p + 2) // 3][(p + 2) % 3]=t
+            print('swap[%d , %d]' % (p, p + 2))
+            return p, p + 2
+        else:
+            t=qipan[p//3][p%3]
+            qipan[p // 3][p % 3] = qipan[(p + 1) // 3][(p + 1) % 3]
+            qipan[(p + 1) // 3][(p + 1) % 3] = t
+            print('swap[%d , %d]' % (p, p + 1))
+            return p, p + 1
+    '''if p==0:  #交换的第一个数为第一格
         if qipan[(p+1)//3][(p+1)%3]==bk:#如果下一格为挖去的格子
             tempnumber=qipan[p//3][p%3]
             qipan[p//3][p%3]=qipan[(p+2)//3][(p+2)%3]
             qipan[(p + 2) // 3][(p + 2) % 3]=tempnumber
+            print('swap[%d , %d]' % (p, p + 2))
+            return p,p+2
         else:
             tempnumber = qipan[p // 3][p % 3]
             qipan[p // 3][p % 3] = qipan[(p + 1) // 3][(p + 1) % 3]
             qipan[(p + 1) // 3][(p + 1) % 3] = tempnumber
-    else:
-        if qipan[(p+1)//3][(p+1)%3]==bk:#如果下一格为挖去的格子
+            print('swap[%d , %d]' % (p, p + 1))
+            return p,p+1
+    else: #逆序对的第一个数不是第一格
+        if qipan[(p+1)//3][(p+1)%3]==bk:#如果下一格为空格
             tempnumber = qipan[p // 3][p % 3]
             qipan[p // 3][p % 3] = qipan[(p + 2) // 3][(p + 2) % 3]
             qipan[(p + 2) // 3][(p + 2) % 3] = tempnumber
+            print('swap[%d , %d]' % (p, p + 2))
+            return p,p+2
         elif p>=blank:#空格在交换的位置之前
             tempnumber = qipan[(p + 1) // 3][(p + 1) % 3]
             qipan[(p + 1) // 3][(p + 1) % 3] = qipan[(p + 2) // 3][(p + 2) % 3]
             qipan[(p + 2) // 3][(p + 2) % 3] = tempnumber
+            print('swap[%d , %d]' % (p + 1, p + 2))
+            return p+1,p+2
         else:
             tempnumber = qipan[p // 3][p % 3]
             qipan[p // 3][p % 3] = qipan[(p + 1) // 3][(p + 1) % 3]
             qipan[(p + 1) // 3][(p + 1) % 3] = tempnumber
+            print('swap[%d , %d]' % (p, p + 1))
+            return p,p+1'''
 def turnToarray(qipan,bk):
     t=[]
     for i in range(3):
@@ -90,9 +118,6 @@ def turnToarray_1(qipan):
     return t
 m=find_image()
 numberarray,board,blank,bk=make_qipan(m)
-s,pos=judgment(numberarray)
-if s%2!=0:
-    swap(board,pos)
 array=turnToarray_1(board)
 print(array)
 print(turnToarray(board,bk))
