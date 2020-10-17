@@ -1,7 +1,7 @@
 import os
 
 from PIL import Image
-import url as URL
+import getproblem as URL
 def cut_image(image):
     width, height = image.size
     item_width = int(width / 3)
@@ -18,7 +18,7 @@ def cut_image(image):
 def save_images(image_list):
     index = 1
     for image in image_list:
-        image.save('./QuestionCut/'+str(index) + '.png')
+        image.save('./QuestionCut/'+str(index) + '.jpg')
         index += 1
-img=Image.open('./question.png')
+img=Image.open('./photo.jpg')
 save_images(cut_image(img))
